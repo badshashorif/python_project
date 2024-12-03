@@ -17,11 +17,11 @@ print("")
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-hq_nat = {'hostname': '10.60.80.2', 'port': '22', 'username':'admin', 'password':'admin'}
-uttaranat = {'hostname': '10.60.80.6', 'port': '22', 'username':'admin', 'password':'admin'}
-greenroadnat = {'hostname': '10.60.80.10', 'port': '22', 'username':'admin', 'password':'admin'}
-jamuna = {'hostname': '10.60.80.14', 'port': '22', 'username':'admin', 'password':'admin'}
-nat_rtr_hq_02 = {'hostname': '10.60.80.22', 'port': '22', 'username':'admin', 'password':'admin'}
+hq_nat = {'hostname': '192.168.80.2', 'port': '22', 'username':'admin', 'password':'admin'}
+uttaranat = {'hostname': '1192.168.80.6', 'port': '22', 'username':'admin', 'password':'admin'}
+greenroadnat = {'hostname': '192.168.80.10', 'port': '22', 'username':'admin', 'password':'admin'}
+jamuna = {'hostname': '192.168.80.14', 'port': '22', 'username':'admin', 'password':'admin'}
+nat_rtr_hq_02 = {'hostname': '192.168.80.22', 'port': '22', 'username':'admin', 'password':'admin'}
 
 
 mirpurboro = {'hostname': '192.168.100.9', 'port': '22', 'username':'admin', 'password':'admin'}
