@@ -1,0 +1,77 @@
+import paramiko
+import time
+
+# Prompt user for credentials
+print("Enter credentials for router login:")
+username = input("Username: ")
+password = input("Password: ")
+
+print("")
+print("  People Internet (ISP) - Queue Script   ")
+print("")
+print("     0 : Unlimited ")
+print("     1 : Peak ")
+print("     2 : Off-Peak ")
+print("     3 : Off-Peak-50-Percent ")
+print("     4 : BONUS  ")
+print("     5 : DOUBLE_OFF-PEAK ")
+print("")
+
+# Define the routers with only IP and port
+routers = [
+    {'hostname': '192.168.80.2', 'port': '22'},
+    {'hostname': '192.168.80.6', 'port': '22'},
+    {'hostname': '192.168.80.10', 'port': '22'},
+    {'hostname': '192.168.80.14', 'port': '22'},
+    {'hostname': '192.168.80.22', 'port': '22'},
+    {'hostname': '192.168.100.9', 'port': '22'},
+    {'hostname': '192.168.100.14', 'port': '22'},
+    {'hostname': '192.168.100.15', 'port': '22'},
+    {'hostname': '192.168.100.17', 'port': '22'},
+    {'hostname': '192.168.100.21', 'port': '22'},
+    {'hostname': '192.168.100.22', 'port': '22'},
+    {'hostname': '192.168.100.24', 'port': '22'},
+    {'hostname': '192.168.100.25', 'port': '22'},
+    {'hostname': '192.168.100.26', 'port': '22'},
+    {'hostname': '192.168.100.27', 'port': '22'},
+    {'hostname': '192.168.100.28', 'port': '22'},
+    {'hostname': '192.168.100.29', 'port': '22'},
+    {'hostname': '192.168.100.35', 'port': '22'},
+    {'hostname': '192.168.100.31', 'port': '22'},
+    {'hostname': '192.168.100.34', 'port': '22'},
+    {'hostname': '192.168.100.11', 'port': '22'},
+    {'hostname': '192.168.100.12', 'port': '22'},
+    {'hostname': '192.168.100.37', 'port': '22'},
+    {'hostname': '192.168.100.36', 'port': '22'},
+    {'hostname': '192.168.100.38', 'port': '22'},
+    {'hostname': '192.168.100.39', 'port': '22'},
+]
+
+script_id = input("Enter Script Value: ")
+
+# Initialize SSH client
+client = paramiko.SSHClient()
+client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+# Iterate through routers and execute commands
+for router in routers:
+    try:
+        print(f'\nConnecting to {router["hostname"]}...')
+        client.connect(
+            hostname=router['hostname'],
+            port=int(router['port']),
+            username=username,
+            password=password
+        )
+        print(f'Connected to {router["hostname"]}')
+        
+        stdin, stdout, stderr = client.exec_command(f'system script run {script_id}')
+        for line in stdout:
+            print(line.strip('\n'))
+
+    except Exception as e:
+        print(f"Failed to connect to {router['hostname']}: {e}")
+    finally:
+        client.close()
+
+print("\nAll tasks completed.")
